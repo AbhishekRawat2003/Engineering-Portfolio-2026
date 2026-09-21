@@ -1,6 +1,7 @@
 import { defineConfig } from 'astro/config';
 import react from '@astrojs/react';
 import tailwindcss from '@tailwindcss/vite';
+import sitemap from '@astrojs/sitemap';
 
 export default defineConfig({
   integrations: [react()],
@@ -10,6 +11,8 @@ export default defineConfig({
    devToolbar: {
     enabled: false
   },
+  site: 'https://abhishekrawat2003-portfolio.vercel.app',
+  integrations: [sitemap()],
 });
 
 
