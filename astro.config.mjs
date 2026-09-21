@@ -11,7 +11,7 @@ export default defineConfig({
    devToolbar: {
     enabled: false
   },
-  site: 'https://abhishekrawat2003-portfolio.vercel.app',
+  site: 'https://abhishekrawat2003-portfolio-3qy8wcafl.vercel.app',
   integrations: [sitemap()],
 });
 

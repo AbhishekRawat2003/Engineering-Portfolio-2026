@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://abhishekrawat2003-portfolio.vercel.app/sitemap-index.xml
+Sitemap: https://abhishekrawat2003-portfolio-3qy8wcafl.vercel.app/sitemap-index.xml
