@@ -1,0 +1,27 @@
+---
+import { skills } from '../data/site';
+---
+
+<section class="section section-dark" id="skills">
+  <div class="shell">
+    <div class="dark-heading" data-reveal>
+      <div class="section-kicker inline light">
+        <span>03</span>
+        <p>Capabilities</p>
+      </div>
+      <h2>A focused toolkit.<br /><em>No logo wall.</em></h2>
+      <p>I list tools I can actually explain, use and defend in a technical conversation.</p>
+    </div>
+
+    <div class="skill-grid">
+      {skills.map((group) => (
+        <div class="skill-block" data-reveal>
+          <span class="skill-label">{group.label}</span>
+          <ul>
+            {group.items.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

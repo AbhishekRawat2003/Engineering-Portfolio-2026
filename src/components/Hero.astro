@@ -1,0 +1,42 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="hero shell" id="top">
+  <div class="hero-copy" data-reveal>
+    <div class="eyebrow"><span></span> Developer portfolio · 2026</div>
+    <h1>
+      Building software with
+      <em>clarity, systems thinking</em>
+      and useful intelligence.
+    </h1>
+    <p class="hero-lede">{site.intro}</p>
+
+    <div class="hero-actions">
+      <a class="button button-primary" href="#work">Explore selected work <span>↘</span></a>
+      <a class="button button-secondary" href={site.github} target="_blank">GitHub <span>↗</span></a>
+    </div>
+  </div>
+
+  <aside class="hero-panel" data-reveal>
+    <div class="panel-topline">
+      <span>PROFILE / 001</span>
+      <span class="status"><i></i> Open to opportunities</span>
+    </div>
+
+    <div class="monogram" aria-hidden="true">{site.initials}</div>
+
+    <div class="panel-footer">
+      <div>
+        <span class="meta-label">Discipline</span>
+        <strong>Computer Science Engineering · CSE</strong>
+      </div>
+      <div>
+        <span class="meta-label">Based in</span>
+        <strong>{site.location}</strong>
+      </div>
+    </div>
+  </aside>
+
+  <div class="hero-index" aria-hidden="true">01</div>
+</section>

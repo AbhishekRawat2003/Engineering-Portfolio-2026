@@ -1,0 +1,535 @@
+---
+import Navbar from "../../components/Navbar.astro";
+import Layout from "../../layouts/Layout.astro";
+import { projects } from "../../data/projects";
+import { site } from "../../data/site";
+
+export function getStaticPaths() {
+  return projects.map((project) => ({
+    params: {
+      slug: project.slug,
+    },
+
+    props: {
+      project,
+    },
+  }));
+}
+
+const { project } = Astro.props;
+---
+<Layout
+  title={`${project.title} | ${site.name}`}
+  description={project.shortDescription}
+  image={project.heroImage}
+>
+  <Navbar />
+  <div class="reading-progress" id="reading-progress"></div>
+
+  <nav class="case-nav" aria-label="Case study navigation">
+  <a href="#overview">01 <span>Overview</span></a>
+  <a href="#problem">02 <span>Problem</span></a>
+  <a href="#approach">03 <span>Approach</span></a>
+  <a href="#architecture">04 <span>Architecture</span></a>
+  <a href="#decisions">05 <span>Decisions</span></a>
+  <a href="#interface">06 <span>Interface</span></a>
+  <a href="#challenges">07 <span>Challenges</span></a>
+  <a href="#solution">08 <span>Solution</span></a>
+  <a href="#learnings">09 <span>Learnings</span></a>
+  <a href="#next">10 <span>Next</span></a>
+</nav>
+
+  <main class="project-page">
+    <!-- BACK -->
+
+    <div class="back-wrapper">
+      <a href="/#work" class="back-link"> ← Back to projects </a>
+    </div>
+
+    <!-- HERO -->
+
+    <section class="project-hero">
+      <div class="project-meta">
+        <span>{project.category}</span>
+
+        <span class="dot">•</span>
+
+        <span>{project.year}</span>
+
+        <span class="dot">•</span>
+
+        <span>{project.status}</span>
+      </div>
+
+      <h1>
+        {project.title}
+      </h1>
+
+      <p class="hero-description">
+        {project.shortDescription}
+      </p>
+
+      <div class="actions">
+        {
+          project.github && (
+            <a
+              href={project.github}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="primary-button"
+            >
+              View GitHub ↗
+            </a>
+          )
+        }
+
+        {
+          project.demo && (
+            <a
+              href={project.demo}
+              target="_blank"
+              rel="noopener noreferrer"
+              class="secondary-button"
+            >
+              Live Demo ↗
+            </a>
+          )
+        }
+      </div>
+    </section>
+
+    <!-- HERO PROJECT IMAGE -->
+
+    {
+      project.heroImage && (
+        <section class="project-visual">
+          <div class="project-visual-inner">
+            <img
+              src={project.heroImage}
+              alt={`${project.title} project preview`}
+            />
+          </div>
+        </section>
+      )
+    }
+
+    <!-- METRICS -->
+
+    {
+      project.metrics && project.metrics.length > 0 && (
+        <section class="project-metrics">
+          {project.metrics.map((metric) => (
+            <div class="metric">
+              <strong>{metric.value}</strong>
+
+              <span>{metric.label}</span>
+            </div>
+          ))}
+        </section>
+      )
+    }
+
+    <!-- 01 OVERVIEW -->
+
+    <section class="content-section" id="overview">
+      <p class="section-label">01 / OVERVIEW</p>
+
+      <h2>About the project</h2>
+
+      <p class="large-text">
+        {project.overview}
+      </p>
+    </section>
+
+    <!-- 02 PROBLEM -->
+
+    <section class="content-section" id="problem">
+      <p class="section-label">02 / THE PROBLEM</p>
+
+      <h2>What was I trying to solve?</h2>
+
+      <p class="body-copy">
+        {project.problem}
+      </p>
+    </section>
+
+    <!-- 03 APPROACH -->
+
+    <section class="content-section" id="approach">
+      <p class="section-label">03 / APPROACH</p>
+
+      <h2>How I approached it</h2>
+
+      <div class="steps">
+        {
+          project.approach.map((step, index) => (
+            <div class="step">
+              <span class="step-number">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              <p>{step}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- 04 ARCHITECTURE -->
+
+    <section class="content-section" id="architecture">
+      <p class="section-label">04 / ARCHITECTURE</p>
+
+      <h2>How the system is structured</h2>
+
+      <!-- ARCHITECTURE IMAGE -->
+
+      {
+        project.architectureImage && (
+          <div class="architecture-visual">
+            <span class="visual-label">SYSTEM ARCHITECTURE</span>
+
+            <img
+              src={project.architectureImage}
+              alt={`${project.title} architecture diagram`}
+              loading="lazy"
+            />
+          </div>
+        )
+      }
+
+      <!-- ARCHITECTURE CARDS -->
+
+      <div class="architecture-grid">
+        {
+          project.architecture.map((item, index) => (
+            <article class="architecture-card">
+              <span class="card-index">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              <h3>{item.title}</h3>
+
+              <p>{item.description}</p>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- 05 KEY DECISIONS -->
+
+    <section class="content-section" id="decisions">
+      <p class="section-label">05 / KEY DECISIONS</p>
+
+      <h2>Why I made certain choices</h2>
+
+      <div class="decision-wrapper">
+        {
+          project.decisions.map((decision, index) => (
+            <article class="decision">
+              <span class="decision-index">
+                {String(index + 1).padStart(2, "0")}
+              </span>
+
+              <div>
+                <h3>{decision.title}</h3>
+
+                <p>{decision.description}</p>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- PRODUCT SCREENSHOTS -->
+
+    {
+      project.screenshots && project.screenshots.length > 0 && (
+        <section class="content-section" id="interface">
+          <p class="section-label">PRODUCT / INTERFACE</p>
+
+          <h2>What the system looks like</h2>
+
+          <div class="screenshot-grid">
+            {project.screenshots.map((image, index) => (
+              <figure
+                class:list={["screenshot", index === 0 && "screenshot-large"]}
+              >
+                <div class="screenshot-image">
+                  <img src={image.src} alt={image.alt} loading="lazy" />
+                </div>
+
+                {image.caption && <figcaption>{image.caption}</figcaption>}
+              </figure>
+            ))}
+          </div>
+        </section>
+      )
+    }
+
+    <!-- 06 CHALLENGES -->
+
+    <section class="content-section" id="challenges">
+      <p class="section-label">06 / CHALLENGES</p>
+
+      <h2>Things that didn't go as planned</h2>
+
+      <div class="challenge-wrapper">
+        {
+          project.challenges.map((challenge, index) => (
+            <article class="challenge">
+              <div class="challenge-number">
+                {String(index + 1).padStart(2, "0")}
+              </div>
+
+              <div class="challenge-content">
+                <h3>{challenge.title}</h3>
+
+                <div class="challenge-comparison">
+                  <div class="challenge-side">
+                    <p class="small-label">THE PROBLEM</p>
+
+                    <p>{challenge.problem}</p>
+                  </div>
+
+                  <div class="challenge-arrow">→</div>
+
+                  <div class="challenge-side">
+                    <p class="small-label">THE SOLUTION</p>
+
+                    <p>{challenge.solution}</p>
+                  </div>
+                </div>
+              </div>
+            </article>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- 07 FINAL SOLUTION -->
+
+    <section class="highlight-section" id="solution">
+      <p class="section-label light-label">07 / SOLUTION</p>
+
+      <h2>What I ended up building</h2>
+
+      <p>
+        {project.solution}
+      </p>
+    </section>
+
+    <!-- 08 LEARNINGS -->
+
+    <section class="content-section" id="learnings">
+      <p class="section-label">08 / LEARNINGS</p>
+
+      <h2>What this project taught me</h2>
+
+      <div class="list-grid">
+        {
+          project.learnings.map((learning, index) => (
+            <div class="learning">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+
+              <p>{learning}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- LEETCODE ACHIEVEMENTS - ONLY FOR DSA PROJECT -->
+
+    {
+      project.slug === "dsa-problem-solving" && (
+        <section class="content-section leetcode-section">
+          <p class="section-label">PROBLEM SOLVING / CONSISTENCY</p>
+
+          <div class="leetcode-heading">
+            <div>
+              <h2>Consistency beyond the code.</h2>
+
+              <p>
+                Building algorithmic intuition takes repetition. These
+                milestones represent consistent practice, revision and problem
+                solving on LeetCode.
+              </p>
+            </div>
+
+            <a
+              href="https://leetcode.com/u/abhishekrawat2003/"
+              target="_blank"
+              rel="noopener noreferrer"
+              class="leetcode-profile-link"
+            >
+              View LeetCode Profile ↗
+            </a>
+          </div>
+
+          <div class="leetcode-badge-grid">
+            <article class="leetcode-badge-card">
+              <div class="badge-image">
+                <img
+                  src="/images/projects/leetcode/50-days.gif"
+                  alt="LeetCode 50 Days Badge"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="badge-content">
+                <span class="badge-platform">LEETCODE</span>
+
+                <h3>50 Days Badge</h3>
+
+                <p>
+                  A milestone earned through consistent algorithm and
+                  data-structure practice.
+                </p>
+              </div>
+            </article>
+
+            <article class="leetcode-badge-card">
+              <div class="badge-image">
+                <img
+                  src="/images/projects/leetcode/100-days.gif"
+                  alt="LeetCode 100 Days Badge"
+                  loading="lazy"
+                />
+              </div>
+
+              <div class="badge-content">
+                <span class="badge-platform">LEETCODE</span>
+
+                <h3>100 Days Badge</h3>
+
+                <p>
+                  Recognition for sustained problem-solving consistency over an
+                  extended period.
+                </p>
+              </div>
+            </article>
+          </div>
+        </section>
+      )
+    }
+
+    <!-- 09 IMPROVEMENTS -->
+
+    <section class="content-section" id="next">
+      <p class="section-label">09 / WHAT'S NEXT</p>
+
+      <h2>What I would improve</h2>
+
+      <div class="list-grid">
+        {
+          project.improvements.map((item, index) => (
+            <div class="learning">
+              <span>{String(index + 1).padStart(2, "0")}</span>
+
+              <p>{item}</p>
+            </div>
+          ))
+        }
+      </div>
+    </section>
+
+    <!-- TECHNOLOGIES -->
+
+    <section class="content-section tech-section">
+      <p class="section-label">TECHNOLOGIES</p>
+
+      <h2>Built with</h2>
+
+      <div class="tech-list">
+        {project.tech.map((technology) => <span>{technology}</span>)}
+      </div>
+    </section>
+
+    <!-- PROJECT FOOTER -->
+
+    <section class="project-footer">
+      <div>
+        <p>Explore more work</p>
+
+        <h2>More projects.</h2>
+      </div>
+
+      <a href="/#work"> View all projects → </a>
+    </section>
+  </main>
+</Layout>
+
+<script>
+  const progressBar = document.getElementById("reading-progress");
+
+  const updateProgress = () => {
+    const scrollTop =
+      window.scrollY ||
+      document.documentElement.scrollTop;
+
+    const scrollHeight =
+      document.documentElement.scrollHeight -
+      window.innerHeight;
+
+    const progress =
+      scrollHeight > 0
+        ? (scrollTop / scrollHeight) * 100
+        : 0;
+
+    if (progressBar) {
+      progressBar.style.width = `${progress}%`;
+    }
+  };
+
+  window.addEventListener("scroll", updateProgress, {
+    passive: true
+  });
+
+  updateProgress();
+
+
+  const sections = document.querySelectorAll(
+    "#overview, #problem, #approach, #architecture, #decisions, #challenges, #solution, #learnings, #next, #interface",
+  );
+
+  const navLinks =
+    document.querySelectorAll<HTMLAnchorElement>(
+      ".case-nav a"
+    );
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+
+        if (!entry.isIntersecting) return;
+
+        const id = entry.target.id;
+
+        navLinks.forEach((link) => {
+
+          const active =
+            link.getAttribute("href") === `#${id}`;
+
+          link.classList.toggle(
+            "active",
+            active
+          );
+
+        });
+
+      });
+    },
+
+    {
+      rootMargin: "-40% 0px -50% 0px",
+      threshold: 0
+    }
+  );
+
+  sections.forEach((section) => {
+    observer.observe(section);
+  });
+</script>

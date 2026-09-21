@@ -1,0 +1,28 @@
+---
+import { site } from '../data/site';
+---
+
+<section class="section contact" id="contact">
+  <div class="shell contact-grid">
+    <div data-reveal>
+      <div class="section-kicker inline">
+        <span>05</span>
+        <p>Contact</p>
+      </div>
+      <h2>Have an interesting problem or opportunity?<br /><em>Let’s talk.</em></h2>
+    </div>
+
+    <div class="contact-panel" data-reveal>
+      <p>
+        I’m interested in internships, engineering collaborations and projects where I can contribute while learning from strong technical teams.
+      </p>
+      <a class="contact-email" href={`mailto:${site.email}`}>{site.email} <span>↗</span></a>
+      <div class="contact-links">
+        <a href={site.github} target="_blank">GitHub ↗</a>
+        <a href={site.linkedin} target="_blank">LinkedIn ↗</a>
+        <a href={site.leetcode} target="_blank">LeetCode ↗</a>
+        <a href={site.resume}>Resume ↗</a>
+      </div>
+    </div>
+  </div>
+</section>
